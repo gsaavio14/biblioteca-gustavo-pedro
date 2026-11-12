@@ -4,6 +4,7 @@ import { join } from 'node:path';
 import { AppModule } from './app.module';
 import { Logger } from '@nestjs/common';
 import expressEjsLayouts from 'express-ejs-layouts';
+import { registerHelpers } from './helpers';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -14,6 +15,8 @@ async function bootstrap() {
 
   app.use(expressEjsLayouts);
   app.set('layout', 'layouts/main');
+
+  registerHelpers(app.getHttpAdapter().getInstance());
 
   const port = process.env.PORT ?? 3000;
 
