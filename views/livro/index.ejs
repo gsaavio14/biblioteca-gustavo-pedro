@@ -1,0 +1,26 @@
+<h1 class="mt-5">Consulta de Livros</h1>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Título</th>
+            <th>Gênero</th>
+            <th>Ano</th>
+            <th>Exemplares</th>
+            <th>Situação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% listaLivros.forEach(function(livro, index) { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= livro.titulo %> <br> <b><small>Id: <%= livro.id %></small></b></td>
+                <td><%= livro.genero %></td>
+                <td><%= livro.anoPublicacao %></td>
+                <td><%= livro.quantidadeDisponivel %> / <%= livro.quantidadeTotal %></td>
+                <td><%- _h.rotuloDisponibilidade(livro.quantidadeDisponivel) %></td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
