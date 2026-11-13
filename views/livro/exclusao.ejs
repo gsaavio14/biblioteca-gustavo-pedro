@@ -1,0 +1,23 @@
+<h3 class="mt-5">Exclusão de Livro</h3>
+
+<div class="alert alert-warning mt-3">
+    Deseja realmente excluir o livro abaixo? Esta ação não pode ser desfeita.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Título</dt>
+    <dd class="col-sm-9"><%= livro.titulo %></dd>
+    <dt class="col-sm-3">ISBN</dt>
+    <dd class="col-sm-9"><%= livro.isbn %></dd>
+    <dt class="col-sm-3">Gênero</dt>
+    <dd class="col-sm-9"><%= livro.genero %></dd>
+    <dt class="col-sm-3">Cadastrado em</dt>
+    <dd class="col-sm-9"><%= dateFormat(livro.criadoEm) %></dd>
+    <dt class="col-sm-3">Situação</dt>
+    <dd class="col-sm-9"><%- _h.rotuloDisponibilidade(livro.quantidadeDisponivel) %></dd>
+</dl>
+
+<form action="/livros/<%= livro.id %>/exclusao" method="post">
+    <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+    <a href="/livros" class="btn btn-secondary">Cancelar</a>
+</form>

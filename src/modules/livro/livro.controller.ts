@@ -64,4 +64,22 @@ export class LivroController {
     async formularioAtualizacaoSalvar(@Param('id') id: number, @Body() dados: CreateLivroDto): Promise<void> {
         await this.livroService.update(id, dados);
     }
+
+    @Get(':id/exclusao')
+    @Render('livro/exclusao')
+    async confirmarExclusao(@Param('id') id: number): Promise<object> {
+        const livro = await this.livroService.findOne(id);
+
+        if(!livro) {
+            throw new Error('Livro não encontrado');
+        }
+
+        return { titulo: 'Exclusão de Livro', livro, _h: helpers };
+    }
+
+    @Post(':id/exclusao')
+    @Redirect('/livros')
+    async excluir(@Param('id') id: number): Promise<void> {
+        await this.livroService.remove(id);
+    }
 }

@@ -36,4 +36,14 @@ export class LivroService {
 
         return livro.save();
     }
+
+    async remove(id: number): Promise<boolean> {
+        const livro = await this.findOne(id);
+
+        if(!livro) return false;
+
+        await livro.remove();
+
+        return true;
+    }
 }

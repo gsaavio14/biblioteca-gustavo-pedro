@@ -25,6 +25,7 @@
                 <td><%- _h.rotuloDisponibilidade(livro.quantidadeDisponivel) %></td>
                 <td>
                     <a href="/livros/<%= livro.id %>/atualizacao" class="btn btn-sm btn-secondary">Atualizar</a>
+                    <a href="/livros/<%= livro.id %>/exclusao" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>
         <% }) %>
