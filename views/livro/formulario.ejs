@@ -1,0 +1,90 @@
+<% const erros = validationErrors(locals.errors); %>
+<% const livro = locals.livro || {} %>
+
+<h3 class="mt-5">Novo Livro</h3>
+
+<form action="/livros/novo" method="post">
+
+    <% if (erros.all.length) { %>
+        <div class="alert alert-danger">
+            <h6>Não foi possível salvar o livro</h6>
+            <ul>
+                <% erros.all.forEach(mensagem => { %>
+                    <li><%= mensagem %></li>
+                <% }) %>
+            </ul>
+        </div> 
+    <% } %>
+
+    <div class="form-group mb-3">
+        <label for="titulo" class="form-label">Título</label>
+        <input type="text" class="form-control" name="titulo" value="<%= livro?.titulo %>" placeholder="Informe o título do livro">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="isbn" class="form-label">ISBN</label>
+        <input type="text" class="form-control" name="isbn" value="<%= livro?.isbn %>" placeholder="Informe o ISBN do livro">
+
+        <% if (erros.has('isbn')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('isbn').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="editora" class="form-label">Editora</label>
+        <input type="text" class="form-control" name="editora" value="<%= livro?.editora %>" placeholder="Informe a editora">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="anoPublicacao" class="form-label">Ano de publicação</label>
+        <input type="number" class="form-control" name="anoPublicacao" value="<%= livro?.anoPublicacao %>" placeholder="Informe o ano de publicação">
+
+        <% if (erros.has('anoPublicacao')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('anoPublicacao').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="genero" class="form-label">Gênero</label>
+        <input type="text" class="form-control" name="genero" value="<%= livro?.genero %>" placeholder="Informe o gênero (romance, ação, terror...)">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="quantidadeTotal" class="form-label">Quantidade de exemplares</label>
+        <input type="number" class="form-control" name="quantidadeTotal" value="<%= livro?.quantidadeTotal %>" placeholder="Informe quantos exemplares existem">
+
+        <% if (erros.has('quantidadeTotal')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('quantidadeTotal').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="sinopse" class="form-label">Sinopse</label>
+        <textarea class="form-control" name="sinopse" id="sinopse" 
+                cols="30" rows="10" placeholder="Descreva o livro..."><%= livro?.sinopse %></textarea>
+    </div>
+
+    <div class="form-group mb-3">
+        <button type="submit" class="btn btn-primary mr-2">Salvar Livro</button>
+        <a href="/livros" class="btn btn-warning">Cancelar</a>
+    </div>
+
+</form>
