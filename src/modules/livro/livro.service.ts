@@ -22,4 +22,18 @@ export class LivroService {
 
         return livro.save();
     }
+
+    async update(id: number, dados: CreateLivroDto): Promise<Livro | null> {
+        const livro = await this.findOne(id);
+
+        if(!livro) return null;
+
+        const diferenca = dados.quantidadeTotal - livro.quantidadeTotal;
+
+        Object.assign(livro, { ...dados });
+
+        livro.quantidadeDisponivel = Math.max(0, livro.quantidadeDisponivel + diferenca);
+
+        return livro.save();
+    }
 }

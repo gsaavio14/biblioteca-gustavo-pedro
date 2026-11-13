@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Redirect, Render } from '@nestjs/common';
 import { LivroService } from './livro.service';
 import { helpers } from './livro.view.helpers';
 import { CreateLivroDto } from './dtos/create-livro.dto';
@@ -34,5 +34,34 @@ export class LivroController {
     })
     async formularioNovoSalvar(@Body() dados: CreateLivroDto): Promise<void> {
         await this.livroService.create(dados);
+    }
+
+    @Get(':id/atualizacao')
+    @Render('livro/formulario')
+    async formularioAtualizacao(@Param('id') id: number): Promise<object> {
+
+        const livro = await this.livroService.findOne(id);
+
+        if(!livro) {
+            throw new Error('Livro não encontrado');
+        }
+
+        return { titulo: 'Atualização de Livro', livro };
+    }
+
+    @Post(':id/atualizacao')
+    @Redirect('/livros')
+    @ValidationView('livro/formulario', ({ request, errors }) => {
+
+        const { params, body } = request;
+
+        return {
+            titulo: 'Atualização de Livro',
+            livro: { id: params.id, ...body },
+            errors
+        };
+    })
+    async formularioAtualizacaoSalvar(@Param('id') id: number, @Body() dados: CreateLivroDto): Promise<void> {
+        await this.livroService.update(id, dados);
     }
 }

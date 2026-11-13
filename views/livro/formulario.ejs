@@ -1,9 +1,17 @@
 <% const erros = validationErrors(locals.errors); %>
 <% const livro = locals.livro || {} %>
 
-<h3 class="mt-5">Novo Livro</h3>
+<h3 class="mt-5">
+    <% if (livro?.id) { %>
+        Atualização do
+    <% } else { %>
+        Novo
+    <% } %>
 
-<form action="/livros/novo" method="post">
+    Livro - <%= livro?.titulo %>
+</h3>
+
+<form action="<%= livro?.id ? `/livros/${livro.id}/atualizacao` : '/livros/novo' %>" method="post">
 
     <% if (erros.all.length) { %>
         <div class="alert alert-danger">

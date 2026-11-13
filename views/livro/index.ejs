@@ -1,5 +1,4 @@
 <h1 class="mt-5">Consulta de Livros</h1>
-<h1 class="mt-5">Consulta de Livros</h1>
 
 <a href="/livros/novo" class="btn btn-primary mt-3">Novo livro</a>
 
@@ -12,6 +11,7 @@
             <th>Ano</th>
             <th>Exemplares</th>
             <th>Situação</th>
+            <th class="text-right">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -23,6 +23,9 @@
                 <td><%= livro.anoPublicacao %></td>
                 <td><%= livro.quantidadeDisponivel %> / <%= livro.quantidadeTotal %></td>
                 <td><%- _h.rotuloDisponibilidade(livro.quantidadeDisponivel) %></td>
+                <td>
+                    <a href="/livros/<%= livro.id %>/atualizacao" class="btn btn-sm btn-secondary">Atualizar</a>
+                </td>
             </tr>
         <% }) %>
     </tbody>
