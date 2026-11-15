@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './config/database/database.module';
 import { LivroModule } from './modules/livro/livro.module';
 import { AutorModule } from './modules/autor/autor.module';
+import { UsuarioModule } from './modules/usuario/usuario.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { AutorModule } from './modules/autor/autor.module';
     DatabaseModule,
     LivroModule,
     AutorModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],
