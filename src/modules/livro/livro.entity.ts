@@ -1,4 +1,5 @@
-import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Autor } from '../autor/autor.entity';
 
 @Entity('livro')
 export class Livro extends BaseEntity {
@@ -28,6 +29,13 @@ export class Livro extends BaseEntity {
 
     @Column({ type: 'text', nullable: true })
     sinopse!: string;
+
+    @Column({ type: 'int', nullable: true })
+    autorId!: number | null;
+
+    @ManyToOne(() => Autor, (autor) => autor.livros, { nullable: true, onDelete: 'SET NULL' })
+    @JoinColumn({ name: 'autorId' })
+    autor!: Autor | null;
 
     @CreateDateColumn()
     criadoEm!: Date;
