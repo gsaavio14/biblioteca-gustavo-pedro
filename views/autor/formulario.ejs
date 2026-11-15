@@ -1,0 +1,83 @@
+<% const erros = validationErrors(locals.errors); %>
+<% const autor = locals.autor || {} %>
+
+<h3 class="mt-5">
+    <% if (autor?.id) { %>
+        Atualização do
+    <% } else { %>
+        Novo
+    <% } %>
+
+    Autor - <%= autor?.nome %>
+</h3>
+
+<form action="<%= autor?.id ? `/autores/${autor.id}/atualizacao` : '/autores/novo' %>" method="post">
+
+    <% if (erros.all.length) { %>
+        <div class="alert alert-danger">
+            <h6>Não foi possível salvar o autor</h6>
+            <ul>
+                <% erros.all.forEach(mensagem => { %>
+                    <li><%= mensagem %></li>
+                <% }) %>
+            </ul>
+        </div> 
+    <% } %>
+
+    <div class="form-group mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" name="nome" value="<%= autor?.nome %>" placeholder="Informe o nome do autor">
+
+        <% if (erros.has('nome')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('nome').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="nacionalidade" class="form-label">Nacionalidade</label>
+        <input type="text" class="form-control" name="nacionalidade" value="<%= autor?.nacionalidade %>" placeholder="Informe a nacionalidade">
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="anoNascimento" class="form-label">Ano de nascimento</label>
+        <input type="number" class="form-control" name="anoNascimento" value="<%= autor?.anoNascimento %>" placeholder="Informe o ano de nascimento">
+
+        <% if (erros.has('anoNascimento')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('anoNascimento').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="biografia" class="form-label">Biografia</label>
+        <textarea class="form-control" name="biografia" id="biografia" 
+                cols="30" rows="10" placeholder="Conte um pouco sobre o autor..."><%= autor?.biografia %></textarea>
+
+        <% if (erros.has('biografia')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('biografia').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <button type="submit" class="btn btn-primary mr-2">Salvar Autor</button>
+        <a href="/autores" class="btn btn-warning">Cancelar</a>
+    </div>
+
+</form>

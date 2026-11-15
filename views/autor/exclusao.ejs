@@ -1,0 +1,21 @@
+<h3 class="mt-5">Exclusão de Autor</h3>
+
+<div class="alert alert-warning mt-3">
+    Deseja realmente excluir o autor abaixo? Esta ação não pode ser desfeita.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Nome</dt>
+    <dd class="col-sm-9"><%= autor.nome %></dd>
+    <dt class="col-sm-3">Nacionalidade</dt>
+    <dd class="col-sm-9"><%= autor.nacionalidade %></dd>
+    <dt class="col-sm-3">Ano de nascimento</dt>
+    <dd class="col-sm-9"><%= autor.anoNascimento %></dd>
+    <dt class="col-sm-3">Cadastrado em</dt>
+    <dd class="col-sm-9"><%= dateFormat(autor.criadoEm) %></dd>
+</dl>
+
+<form action="/autores/<%= autor.id %>/exclusao" method="post">
+    <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+    <a href="/autores" class="btn btn-secondary">Cancelar</a>
+</form>

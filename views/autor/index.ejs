@@ -1,0 +1,29 @@
+<h1 class="mt-5">Consulta de Autores</h1>
+
+<a href="/autores/novo" class="btn btn-primary mt-3">Novo autor</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Nacionalidade</th>
+            <th>Ano de nascimento</th>
+            <th class="text-right">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% listaAutores.forEach(function(autor, index) { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= autor.nome %> <br> <b><small>Id: <%= autor.id %></small></b></td>
+                <td><%= autor.nacionalidade %></td>
+                <td><%= autor.anoNascimento %></td>
+                <td>
+                    <a href="/autores/<%= autor.id %>/atualizacao" class="btn btn-sm btn-secondary">Atualizar</a>
+                    <a href="/autores/<%= autor.id %>/exclusao" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
