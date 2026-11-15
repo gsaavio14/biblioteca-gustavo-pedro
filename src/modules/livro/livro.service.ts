@@ -6,7 +6,7 @@ import { CreateLivroDto } from './dtos/create-livro.dto';
 export class LivroService {
 
     async findAll(): Promise<Livro[]> {
-        let livros = await Livro.find();
+        let livros = await Livro.find({ relations: { autor: true } });
 
         return livros;
     }

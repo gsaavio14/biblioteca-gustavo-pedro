@@ -30,6 +30,26 @@
     </div>
 
     <div class="form-group mb-3">
+        <label for="autorId" class="form-label">Autor</label>
+        <select class="form-select" name="autorId" id="autorId">
+            <option value="">Selecione um autor</option>
+            <% (locals.autores || []).forEach(autor => { %>
+                <option value="<%= autor.id %>" <%= livro?.autorId == autor.id ? 'selected' : '' %>><%= autor.nome %></option>
+            <% }) %>
+        </select>
+
+        <% if (erros.has('autorId')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('autorId').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
         <label for="isbn" class="form-label">ISBN</label>
         <input type="text" class="form-control" name="isbn" value="<%= livro?.isbn %>" placeholder="Informe o ISBN do livro">
 

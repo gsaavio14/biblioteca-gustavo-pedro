@@ -29,4 +29,9 @@ export class CreateLivroDto {
     @IsNotEmpty({ message: 'O campo sinopse é obrigatório' })
     @MinLength(10, { message: 'A sinopse deve ter no mínimo 10 caracteres' })
     sinopse!: string;
+
+    @Type(() => Number)
+    @IsInt({ message: 'Selecione um autor' })
+    @Min(1, { message: 'Selecione um autor' })
+    autorId!: number;
 }
