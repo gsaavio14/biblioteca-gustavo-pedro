@@ -1,0 +1,21 @@
+<h3 class="mt-5">Exclusão de Usuário</h3>
+
+<div class="alert alert-warning mt-3">
+    Deseja realmente excluir o usuário abaixo? Esta ação não pode ser desfeita.
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Nome</dt>
+    <dd class="col-sm-9"><%= usuario.nome %></dd>
+    <dt class="col-sm-3">E-mail</dt>
+    <dd class="col-sm-9"><%= usuario.email %></dd>
+    <dt class="col-sm-3">Telefone</dt>
+    <dd class="col-sm-9"><%= usuario.telefone %></dd>
+    <dt class="col-sm-3">Cadastrado em</dt>
+    <dd class="col-sm-9"><%= dateFormat(usuario.criadoEm) %></dd>
+</dl>
+
+<form action="/usuarios/<%= usuario.id %>/exclusao" method="post">
+    <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+    <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+</form>

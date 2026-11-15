@@ -1,0 +1,29 @@
+<h1 class="mt-5">Consulta de Usuários</h1>
+
+<a href="/usuarios/novo" class="btn btn-primary mt-3">Novo usuário</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>E-mail</th>
+            <th>Telefone</th>
+            <th class="text-right">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% listaUsuarios.forEach(function(usuario, index) { %>
+            <tr>
+                <td><%= index + 1 %></td>
+                <td><%= usuario.nome %> <br> <b><small>Id: <%= usuario.id %></small></b></td>
+                <td><%= usuario.email %></td>
+                <td><%= usuario.telefone %></td>
+                <td>
+                    <a href="/usuarios/<%= usuario.id %>/atualizacao" class="btn btn-sm btn-secondary">Atualizar</a>
+                    <a href="/usuarios/<%= usuario.id %>/exclusao" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>

@@ -1,0 +1,77 @@
+<% const erros = validationErrors(locals.errors); %>
+<% const usuario = locals.usuario || {} %>
+
+<h3 class="mt-5">
+    <% if (usuario?.id) { %>
+        Atualização do
+    <% } else { %>
+        Novo
+    <% } %>
+
+    Usuário - <%= usuario?.nome %>
+</h3>
+
+<form action="<%= usuario?.id ? `/usuarios/${usuario.id}/atualizacao` : '/usuarios/novo' %>" method="post">
+
+    <% if (erros.all.length) { %>
+        <div class="alert alert-danger">
+            <h6>Não foi possível salvar o usuário</h6>
+            <ul>
+                <% erros.all.forEach(mensagem => { %>
+                    <li><%= mensagem %></li>
+                <% }) %>
+            </ul>
+        </div> 
+    <% } %>
+
+    <div class="form-group mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" name="nome" value="<%= usuario?.nome %>" placeholder="Informe o nome do usuário">
+
+        <% if (erros.has('nome')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('nome').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="email" class="form-label">E-mail</label>
+        <input type="text" class="form-control" name="email" value="<%= usuario?.email %>" placeholder="Informe o e-mail">
+
+        <% if (erros.has('email')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('email').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <label for="telefone" class="form-label">Telefone</label>
+        <input type="text" class="form-control" name="telefone" value="<%= usuario?.telefone %>" placeholder="Informe o telefone">
+
+        <% if (erros.has('telefone')) { %>
+            <div class="invalid-feedback d-block">
+                <ul>
+                    <% erros.get('telefone').forEach(mensagem => { %>
+                        <li><small><%= mensagem %></small></li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% } %>
+    </div>
+
+    <div class="form-group mb-3">
+        <button type="submit" class="btn btn-primary mr-2">Salvar Usuário</button>
+        <a href="/usuarios" class="btn btn-warning">Cancelar</a>
+    </div>
+
+</form>
