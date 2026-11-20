@@ -1,16 +1,20 @@
-import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsEmail, IsNotEmpty, Matches, MinLength } from 'class-validator';
 
 export class CreateUsuarioDto {
 
-    @IsNotEmpty({ message: 'O campo nome é obrigatório' })
+    @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
+    @IsNotEmpty({ message: 'O nome é obrigatório' })
     @MinLength(3, { message: 'O nome deve ter no mínimo 3 caracteres' })
+    @Matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'.-]+$/, { message: 'O nome não pode ter números nem símbolos' })
     nome!: string;
 
-    @IsNotEmpty({ message: 'O campo e-mail é obrigatório' })
+    @Transform(({ value }) => (typeof value === 'string' ? value.trim().toLowerCase() : value))
+    @IsNotEmpty({ message: 'O e-mail é obrigatório' })
     @IsEmail({}, { message: 'Informe um e-mail válido' })
     email!: string;
 
-    @IsNotEmpty({ message: 'O campo telefone é obrigatório' })
-    @MinLength(8, { message: 'O telefone deve ter no mínimo 8 caracteres' })
+    @Transform(({ value }) => (typeof value === 'string' ? value.replace(/\D/g, '') : value))
+    @Matches(/^\d{10,11}$/, { message: 'O telefone deve ter 10 ou 11 números (com DDD)' })
     telefone!: string;
 }
