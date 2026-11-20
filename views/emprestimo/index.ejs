@@ -11,6 +11,9 @@
             <th>Livro</th>
             <th>Data do empréstimo</th>
             <th>Devolução prevista</th>
+            <th>Devolvido em</th>
+            <th>Multa</th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -21,11 +24,26 @@
                 <td><%= emprestimo.livro.titulo %></td>
                 <td><%= dateFormat(emprestimo.dataEmprestimo) %></td>
                 <td><%= dateFormat(emprestimo.dataPrevistaDevolucao) %></td>
+                <td>
+                    <% if (emprestimo.dataEfetivaDevolucao) { %>
+                        <%= dateFormat(emprestimo.dataEfetivaDevolucao) %>
+                    <% } else { %>
+                        <span class="badge text-bg-warning">Em aberto</span>
+                    <% } %>
+                </td>
+                <td><%= moneyFormat(emprestimo.valorMulta) %></td>
+                <td>
+                    <% if (!emprestimo.dataEfetivaDevolucao) { %>
+                        <form action="/emprestimos/<%= emprestimo.id %>/devolucao" method="post">
+                            <button type="submit" class="btn btn-sm btn-success">Devolver</button>
+                        </form>
+                    <% } %>
+                </td>
             </tr>
         <% }) %>
         <% if (listaEmprestimos.length === 0) { %>
             <tr>
-                <td colspan="5" class="text-center">Nenhum empréstimo cadastrado.</td>
+                <td colspan="8" class="text-center">Nenhum empréstimo cadastrado.</td>
             </tr>
         <% } %>
     </tbody>

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Redirect, Render } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Redirect, Render } from '@nestjs/common';
 import { ValidationView } from 'nest-validation-view';
 import { EmprestimoService } from './emprestimo.service';
 import { CreateEmprestimoDto } from './dtos/create-emprestimo.dto';
@@ -33,5 +33,11 @@ export class EmprestimoController {
     })
     async formularioNovoSalvar(@Body() dados: CreateEmprestimoDto): Promise<void> {
         await this.emprestimoService.create(dados);
+    }
+
+    @Post(':id/devolucao')
+    @Redirect('/emprestimos')
+    async devolver(@Param('id') id: number): Promise<void> {
+        await this.emprestimoService.devolver(id);
     }
 }

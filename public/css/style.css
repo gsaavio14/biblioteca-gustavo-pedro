@@ -1,88 +1,243 @@
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
+:root {
+    --bib-azul: #0f5a96;
+    --bib-azul-escuro: #0b4676;
+    --bib-laranja: #f28c1a;
+}
+
+[data-bs-theme="light"] {
+    --bs-body-bg: #ffffff;
+    --bs-primary: #0f5a96;
+    --bs-primary-rgb: 15, 90, 150;
+    --bs-link-color: #0f5a96;
+    --bs-link-hover-color: #0b4676;
+}
+
+[data-bs-theme="dark"] {
+    --bs-primary: #4aa3df;
+    --bs-primary-rgb: 74, 163, 223;
+    --bs-link-color: #6db8ea;
+    --bs-link-hover-color: #94cdf2;
+}
 
 main > .container {
-  padding: 60px 15px 0;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 }
 
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none
+h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.25rem;
 }
 
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-      font-size: 3.5rem
-  }
+/* ===== Cabeçalho ===== */
+.site-header {
+    background: var(--bs-tertiary-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+    padding: 0.6rem 0;
 }
 
-.b-example-divider {
-  width: 100%;
-  height: 3rem;
-  background-color: #0000001a;
-  border: solid rgba(0, 0, 0, .15);
-  border-width: 1px 0;
-  box-shadow: inset 0 .5em 1.5em #0000001a, inset 0 .125em .5em #00000026
+.site-header .marca {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bs-body-color);
 }
 
-.b-example-vr {
-  flex-shrink: 0;
-  width: 1.5rem;
-  height: 100vh
+.site-header .nav-link {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--bs-body-color);
+    padding: 0.5rem 1rem;
+    border-bottom: 2px solid transparent;
 }
 
-.bi {
-  vertical-align: -.125em;
-  fill: currentColor
+.site-header .nav-link:hover {
+    color: var(--bib-azul);
 }
 
-.nav-scroller {
-  position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden
+.site-header .nav-link.active {
+    color: var(--bs-body-color);
+    border-bottom-color: var(--bib-laranja);
 }
 
-.nav-scroller .nav {
-  display: flex;
-  flex-wrap: nowrap;
-  padding-bottom: 1rem;
-  margin-top: -1px;
-  overflow-x: auto;
-  text-align: center;
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch
+[data-bs-theme="dark"] .navbar-toggler-icon {
+    filter: invert(1);
 }
 
-.btn-bd-primary {
-  --bd-violet-bg: #712cf9;
-  --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
-  --bs-btn-font-weight: 600;
-  --bs-btn-color: var(--bs-white);
-  --bs-btn-bg: var(--bd-violet-bg);
-  --bs-btn-border-color: var(--bd-violet-bg);
-  --bs-btn-hover-color: var(--bs-white);
-  --bs-btn-hover-bg: #6528e0;
-  --bs-btn-hover-border-color: #6528e0;
-  --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
-  --bs-btn-active-color: var(--bs-btn-hover-color);
-  --bs-btn-active-bg: #5a23c8;
-  --bs-btn-active-border-color: #5a23c8
+/* ===== Botão de destaque ===== */
+.btn-cta {
+    display: inline-block;
+    background: var(--bib-azul);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.7rem 1.4rem;
+    border: 0;
+    border-radius: 0;
 }
 
+.btn-cta:hover {
+    background: var(--bib-azul-escuro);
+    color: #ffffff;
+}
+
+/* ===== Abertura da Home ===== */
+.hero {
+    background: var(--bib-azul-escuro);
+    color: #ffffff;
+    padding: 4rem 2.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 5px solid var(--bib-laranja);
+}
+
+.hero .hero-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.hero .hero-titulo {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.4rem, 6vw, 4.5rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+}
+
+.hero .btn-cta {
+    background: var(--bib-laranja);
+}
+
+.hero .btn-cta:hover {
+    background: #d97a0f;
+}
+
+/* ===== Botões ===== */
+.btn {
+    border-radius: 0.4rem;
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--bib-azul);
+    --bs-btn-border-color: var(--bib-azul);
+    --bs-btn-hover-bg: var(--bib-azul-escuro);
+    --bs-btn-hover-border-color: var(--bib-azul-escuro);
+    --bs-btn-active-bg: var(--bib-azul-escuro);
+    --bs-btn-active-border-color: var(--bib-azul-escuro);
+}
+
+/* ===== Tabelas ===== */
+[data-bs-theme="light"] .table {
+    --bs-table-bg: #ffffff;
+}
+
+.table {
+    border: 1px solid var(--bs-border-color);
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.table thead th {
+    background-color: var(--bib-azul-escuro);
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.85rem 0.75rem;
+    border-bottom: 0;
+}
+
+.table tbody td {
+    padding: 0.7rem 0.75rem;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    --bs-table-bg-state: rgba(var(--bs-primary-rgb), 0.08);
+}
+
+/* ===== Formulários (cartão) ===== */
+main .container > form {
+    max-width: 680px;
+    padding: 1.5rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+[data-bs-theme="light"] main .container > form {
+    background: #ffffff;
+}
+
+[data-bs-theme="dark"] main .container > form {
+    background: var(--bs-tertiary-bg);
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    border-radius: 0.4rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--bib-azul);
+    box-shadow: 0 0 0 0.2rem rgba(15, 90, 150, 0.2);
+}
+
+/* ===== Cards da Home ===== */
+.card {
+    border-radius: 0.5rem;
+    border-top: 3px solid var(--bib-laranja);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== Botão de tema (claro/escuro) ===== */
 .bd-mode-toggle {
-  z-index: 1500
+    z-index: 1500;
 }
 
 .bd-mode-toggle .bi {
-  width: 1em;
-  height: 1em
+    width: 1em;
+    height: 1em;
+    fill: currentcolor;
 }
 
-.bd-mode-toggle .dropdown-menu .active .bi {
-  display: block !important
+.btn-bd-primary {
+    --bs-btn-font-weight: 600;
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #712cf9;
+    --bs-btn-border-color: #712cf9;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #6528e0;
+    --bs-btn-hover-border-color: #6528e0;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #5a23c8;
+    --bs-btn-active-border-color: #5a23c8;
 }
