@@ -2,16 +2,20 @@ import { BaseEntity, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, U
 
 @Entity('usuario')
 export class Usuario extends BaseEntity {
+
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column({ type: 'varchar', length: 200 })
+    @Column()
     nome!: string;
 
-    @Column({ type: 'varchar', length: 200 })
+    @Column()
+    cpf!: string;
+
+    @Column()
     email!: string;
 
-    @Column({ type: 'varchar', length: 20 })
+    @Column()
     telefone!: string;
 
     @CreateDateColumn()

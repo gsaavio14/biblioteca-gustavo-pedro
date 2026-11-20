@@ -31,6 +31,7 @@ export class UsuarioService {
         await this.verificarRepetidos(dados, id);
 
         usuario.nome = dados.nome;
+        usuario.cpf = dados.cpf;
         usuario.email = dados.email;
         usuario.telefone = dados.telefone;
 
@@ -48,6 +49,12 @@ export class UsuarioService {
     }
 
     private async verificarRepetidos(dados: CreateUsuarioDto, idIgnorado?: number): Promise<void> {
+        const comMesmoCpf = await Usuario.findOne({ where: { cpf: dados.cpf } });
+
+        if(comMesmoCpf && comMesmoCpf.id !== Number(idIgnorado)) {
+            throw new BadRequestException('Já existe um usuário com este CPF');
+        }
+
         const comMesmoEmail = await Usuario.findOne({ where: { email: dados.email } });
 
         if(comMesmoEmail && comMesmoEmail.id !== Number(idIgnorado)) {

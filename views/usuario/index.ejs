@@ -7,6 +7,7 @@
         <tr>
             <th>#</th>
             <th>Nome</th>
+            <th>CPF</th>
             <th>E-mail</th>
             <th>Telefone</th>
             <th class="text-right">Ações</th>
@@ -17,6 +18,7 @@
             <tr>
                 <td><%= index + 1 %></td>
                 <td><%= usuario.nome %> <br> <b><small>Id: <%= usuario.id %></small></b></td>
+                <td><%= usuario.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4') %></td>
                 <td><%= usuario.email %></td>
                 <td><%= usuario.telefone %></td>
                 <td>

@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer';
 import { IsEmail, IsNotEmpty, Matches, MinLength } from 'class-validator';
+import { IsCpf } from './is-cpf.validator';
 
 export class CreateUsuarioDto {
 
@@ -8,6 +9,10 @@ export class CreateUsuarioDto {
     @MinLength(3, { message: 'O nome deve ter no mínimo 3 caracteres' })
     @Matches(/^[A-Za-zÀ-ÖØ-öø-ÿ\s'.-]+$/, { message: 'O nome não pode ter números nem símbolos' })
     nome!: string;
+
+    @Transform(({ value }) => (typeof value === 'string' ? value.replace(/\D/g, '') : value))
+    @IsCpf({ message: 'Informe um CPF válido' })
+    cpf!: string;
 
     @Transform(({ value }) => (typeof value === 'string' ? value.trim().toLowerCase() : value))
     @IsNotEmpty({ message: 'O e-mail é obrigatório' })
