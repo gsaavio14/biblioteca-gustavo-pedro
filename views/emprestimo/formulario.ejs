@@ -1,0 +1,42 @@
+<h1>Novo empréstimo</h1>
+
+<% if (locals.errors && errors.all && errors.all.length > 0) { %>
+    <div class="alert alert-danger">
+        <ul class="mb-0">
+            <% errors.all.forEach(function(erro) { %>
+                <li><%= erro %></li>
+            <% }) %>
+        </ul>
+    </div>
+<% } %>
+
+<form action="/emprestimos/novo" method="post">
+    <div class="mb-3">
+        <label for="usuarioId" class="form-label">Usuário</label>
+        <select name="usuarioId" id="usuarioId" class="form-select">
+            <option value="">Selecione...</option>
+            <% (locals.usuarios || []).forEach(function(usuario) { %>
+                <option value="<%= usuario.id %>"
+                    <%= locals.emprestimo && emprestimo.usuarioId == usuario.id ? 'selected' : '' %>>
+                    <%= usuario.nome %>
+                </option>
+            <% }) %>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="livroId" class="form-label">Livro</label>
+        <select name="livroId" id="livroId" class="form-select">
+            <option value="">Selecione...</option>
+            <% (locals.livros || []).forEach(function(livro) { %>
+                <option value="<%= livro.id %>"
+                    <%= locals.emprestimo && emprestimo.livroId == livro.id ? 'selected' : '' %>>
+                    <%= livro.titulo %> (disponíveis: <%= livro.quantidadeDisponivel %>)
+                </option>
+            <% }) %>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-success">Emprestar</button>
+    <a href="/emprestimos" class="btn btn-secondary">Voltar</a>
+</form>
