@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { Usuario } from './usuario.entity';
 import { CreateUsuarioDto } from './dtos/create-usuario.dto';
+import { Emprestimo } from '../emprestimo/emprestimo.entity';
 
 @Injectable()
 export class UsuarioService {
@@ -43,6 +44,12 @@ export class UsuarioService {
 
         if(!usuario) {
             throw new Error('Usuário não encontrado');
+        }
+
+        const totalEmprestimos = await Emprestimo.count({ where: { usuarioId: id } });
+
+        if(totalEmprestimos > 0) {
+            throw new BadRequestException('Este usuário possui empréstimos e não pode ser excluído');
         }
 
         await usuario.remove();

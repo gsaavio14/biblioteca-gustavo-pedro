@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post, Redirect, Render } from '@nestjs/common';
+import { ValidationView } from 'nest-validation-view';
 import { UsuarioService } from './usuario.service';
 import { CreateUsuarioDto } from './dtos/create-usuario.dto';
-import { ValidationView } from 'nest-validation-view';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -13,20 +13,20 @@ export class UsuarioController {
     async getAll(): Promise<object> {
         let usuarios = await this.usuarioService.findAll();
 
-        return { titulo: 'Usuários', listaUsuarios: usuarios };
+        return { listaUsuarios: usuarios, titulo: 'Usuários' };
     }
 
     @Get('novo')
     @Render('usuario/formulario')
     async formularioNovo(): Promise<object> {
-        return { titulo: 'Novo Usuário' };
+        return { titulo: 'Novo usuário' };
     }
 
     @Post('novo')
     @Redirect('/usuarios')
     @ValidationView('usuario/formulario', ({ request, errors }) => {
         return {
-            titulo: 'Novo Usuário',
+            titulo: 'Novo usuário',
             usuario: request.body,
             errors
         };
@@ -45,7 +45,7 @@ export class UsuarioController {
             throw new Error('Usuário não encontrado');
         }
 
-        return { titulo: 'Atualização de Usuário', usuario };
+        return { titulo: 'Atualização de usuário', usuario };
     }
 
     @Post(':id/atualizacao')
@@ -55,7 +55,7 @@ export class UsuarioController {
         const { params, body } = request;
 
         return {
-            titulo: 'Atualização de Usuário',
+            titulo: 'Atualização de usuário',
             usuario: { id: params.id, ...body },
             errors
         };
@@ -73,11 +73,18 @@ export class UsuarioController {
             throw new Error('Usuário não encontrado');
         }
 
-        return { titulo: 'Exclusão de Usuário', usuario };
+        return { titulo: 'Exclusão de usuário', usuario };
     }
 
     @Post(':id/exclusao')
     @Redirect('/usuarios')
+    @ValidationView('usuario/exclusao', ({ request, errors }) => {
+        return {
+            titulo: 'Exclusão de usuário',
+            usuario: { id: request.params.id },
+            errors
+        };
+    })
     async excluir(@Param('id') id: number): Promise<void> {
         await this.usuarioService.remove(id);
     }

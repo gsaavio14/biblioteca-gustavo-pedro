@@ -1,21 +1,41 @@
+<% const erros = validationErrors(locals.errors); %>
+<% const usuario = locals.usuario || {} %>
+
 <h3 class="mt-5">Exclusão de Usuário</h3>
 
-<div class="alert alert-warning mt-3">
-    Deseja realmente excluir o usuário abaixo? Esta ação não pode ser desfeita.
-</div>
+<% if (erros.all.length) { %>
 
-<dl class="row">
-    <dt class="col-sm-3">Nome</dt>
-    <dd class="col-sm-9"><%= usuario.nome %></dd>
-    <dt class="col-sm-3">E-mail</dt>
-    <dd class="col-sm-9"><%= usuario.email %></dd>
-    <dt class="col-sm-3">Telefone</dt>
-    <dd class="col-sm-9"><%= usuario.telefone %></dd>
-    <dt class="col-sm-3">Cadastrado em</dt>
-    <dd class="col-sm-9"><%= dateFormat(usuario.criadoEm) %></dd>
-</dl>
+    <div class="alert alert-danger mt-3">
+        <h6>Não foi possível excluir o usuário</h6>
+        <ul class="mb-0">
+            <% erros.all.forEach(mensagem => { %>
+                <li><%= mensagem %></li>
+            <% }) %>
+        </ul>
+    </div>
 
-<form action="/usuarios/<%= usuario.id %>/exclusao" method="post">
-    <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
-    <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
-</form>
+    <a href="/usuarios" class="btn btn-secondary">Voltar</a>
+
+<% } else { %>
+
+    <div class="alert alert-warning mt-3">
+        Deseja realmente excluir o usuário abaixo? Esta ação não pode ser desfeita.
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-3">Nome</dt>
+        <dd class="col-sm-9"><%= usuario.nome %></dd>
+        <dt class="col-sm-3">CPF</dt>
+        <dd class="col-sm-9"><%= usuario.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4') %></dd>
+        <dt class="col-sm-3">E-mail</dt>
+        <dd class="col-sm-9"><%= usuario.email %></dd>
+        <dt class="col-sm-3">Telefone</dt>
+        <dd class="col-sm-9"><%= usuario.telefone %></dd>
+    </dl>
+
+    <form action="/usuarios/<%= usuario.id %>/exclusao" method="post">
+        <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+        <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+<% } %>
